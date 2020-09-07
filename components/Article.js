@@ -102,7 +102,50 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
+// ROOT DIV THAT EXISTS IN HTML CODE THAT WE NEED TO APPEND EVERYTHING TO
+const articlesDiv = document.querySelector(".articles")
 
+let article = {title: "THIS ROCKS!", date: "11/11/32", firstParagraph: "", secondParagraph: "", thirdParagraph: ""}
+
+
+
+function articleMaker(article) {
+  //CREATE THE DIV FOR THE CARD  
+  const articleDiv = document.createElement("div")
+    articleDiv.classList.add("article")
+    // CREATE THE H2 ELEMENT
+    const articleH2 = document.createElement("h2")
+    //
+    articleH2.textContent = article.title
+    // APPEND H2 TO THE DIV
+    articleDiv.appendChild(articleH2)
+    const articleDate = document.createElement("p")
+    //GIVE THE DATE A CLASS
+    articleDate.classList.add("date")
+    articleDiv.appendChild(articleDate)
+    //ARTICLE DATE
+    articleDate.textContent = article.date 
+    // CREATE PARAGRAPHS
+    const artp1 = document.createElement("p1")
+    artp1.textContent = article.firstParagraph;
+    const artp2 = document.createElement("p2")
+    artp2.textContent = article.secondParagraph;
+    const artp3 = document.createElement("p3")
+    artp3.textContent = article.thirdParagraph;
+    const articleSpan = document.createElement("span")
+    articleSpan.classList.add("expandButton")
+    articleDiv.append(artp1, artp2, artp3, articleSpan)
+    articleSpan.textContent = "EXPAND +"
+    articleSpan.addEventListener("click", (event) => {
+      articleDiv.classList.toggle("article-open")
+    })
+
+    return articleDiv;
+  }
+
+  // articlesDiv.appendChild(articleMaker(article))
+/*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +157,12 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+data.unshift(article)
+data.map(item => {
+  document.querySelector(".articles").appendChild(articleMaker(item))
+})
+
+// forEach WILL NOT WORK IN REACT --->
+// data.forEach(el =>
+//  divArticle.appendChild(articleMaker(el))
+//  );
